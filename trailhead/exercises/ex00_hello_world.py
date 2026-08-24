@@ -9,12 +9,11 @@ def greet(name: str) -> str:  # function greet with arguments name as string
 greet(name="Dikshita")  # call
 
 
-def greet(name: str) -> str:  # function greet with arguments name as string
+def greet1(name):  # function greet with arguments name as string
     """A welcoming first function definition."""
-    return "Hello, " + name + "!"  # 1ST REFLECTION QUESTION
 
 
-greet(name="Dikshita")  # call
+greet1(name="Dikshita")  # call
 
 
 greet(greet(name="Dikshita"))  # 2ND REFLECTION QUESTION
