@@ -5,9 +5,11 @@
 
 """Prepare every Python project in this VS Code workspace.
 
-First, we fetch updates from Git's ``origin``, preview the merge without changing
-the student's files, and apply it only when Git predicts a conflict-free merge.
-Then, for each sibling directory that contains a ``pyproject.toml`` file, we:
+First, we restore the course-managed VS Code workspace file to its committed
+version. Then we fetch updates from Git's ``origin``, preview the merge without
+changing the student's project files, and apply it only when Git predicts a
+conflict-free merge. For each sibling directory that contains a
+``pyproject.toml`` file, we then:
 
 1. repair a missing, incomplete, or relocated virtual environment;
 2. synchronize the environment to the course's committed, cross-platform
@@ -60,6 +62,11 @@ IGNORED_DIRECTORY_NAMES = {
 # test suite.  Sixty seconds is generous for the small diagnostic tests this
 # script is intended to find.
 TEST_TIMEOUT_SECONDS = 60
+
+# Students work in the project directories, but this root-level file is managed
+# by the course. Any staged or unstaged changes to it are discarded during sync
+# so they cannot prevent course updates from merging cleanly.
+MANAGED_WORKSPACE_FILE = "workspace.code-workspace"
 
 
 # ---------------------------------------------------------------------------
@@ -173,9 +180,27 @@ def find_git() -> str | None:
 
 
 def update_workspace(git: str) -> bool:
-    """Fetch origin and merge it only after a conflict-free preview."""
+    """Restore managed settings, then fetch and safely merge origin."""
 
     print_heading("Updating course workspace")
+
+    restored = run_command(
+        "Restore the course-managed VS Code workspace settings",
+        [
+            git,
+            "restore",
+            "--source=HEAD",
+            "--staged",
+            "--worktree",
+            "--",
+            MANAGED_WORKSPACE_FILE,
+        ],
+        WORKSPACE_DIRECTORY,
+    )
+    if not restored:
+        print("\n  Project setup will continue so you can see any other problems.")
+        return False
+
     fetched = run_command(
         "Download the latest course history from origin",
         [git, "fetch", "origin"],
@@ -191,7 +216,7 @@ def update_workspace(git: str) -> bool:
             "\n  Git predicts that the course update would conflict with local "
             "work, so it was not applied."
         )
-        print("  The working files and Git index were left unchanged.")
+        print("  No student project files were changed.")
         print("  Project setup will continue so you can see any other problems.")
         return False
 
@@ -200,7 +225,7 @@ def update_workspace(git: str) -> bool:
             "\n  Git could not check the course update safely, so it was not "
             "applied."
         )
-        print("  The working files and Git index were left unchanged.")
+        print("  No student project files were changed.")
         print("  Project setup will continue so you can see any other problems.")
         return False
 

@@ -1,0 +1,10 @@
+.DS_Store
+.pytest_cache/
+.venv/
+__pycache__/
+*.py[cod]
+dist/
+*.zip
+
+# Keep verified images intentionally; ignore ad-hoc captures.
+artifacts/*.png

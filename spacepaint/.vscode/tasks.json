@@ -1,0 +1,29 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create EX01 - Spacepaint Submission",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--managed-python",
+        "spacepaint-submit",
+        "--scripts",
+        "flight_plans/ex01_level_0.py",
+        "flight_plans/ex01_level_1.py",
+        "flight_plans/ex01_level_2.py",
+        "flight_plans/ex01_level_3.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    }
+  ]
+}

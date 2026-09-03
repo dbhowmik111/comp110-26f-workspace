@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.venv": true,
+    ".python-version": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "scripts": true,
+    "src": true,
+    ".gitignore": true,
+    ".vscode": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  }
+}
