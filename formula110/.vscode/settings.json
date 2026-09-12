@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.venv": true,
+    ".python-version": true,
+    "pyproject.toml": true,
+    "scripts": true,
+    "uv.lock": true,
+    "src/racing": true,
+    ".gitignore": true,
+    ".vscode": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  }
+}

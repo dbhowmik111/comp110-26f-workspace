@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Create EX02 - Formula110 Submission",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--managed-python",
+        "python",
+        "scripts/export_formula110_exercise.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    }
+  ]
+}
