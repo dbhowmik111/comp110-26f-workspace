@@ -1,8 +1,8 @@
-"""__author__: str = "730986400" """
-
 """Self-driving robotic race car controller demo."""
 
 from racing import RobotCommand, RobotSensors
+
+__author__: str = "730986400"
 
 RACING_NAME: str = "Level 0"
 RACING_COLOR: str = "#FEDD00"
