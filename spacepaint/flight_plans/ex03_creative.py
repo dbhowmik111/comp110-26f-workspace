@@ -1,4 +1,4 @@
-"""Making art in space!"""
+"""Painting a [placeholder — describe your scene idea] in space."""
 
 from math import atan2, degrees, sqrt
 
