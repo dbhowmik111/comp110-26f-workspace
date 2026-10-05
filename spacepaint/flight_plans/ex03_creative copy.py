@@ -1,4 +1,11 @@
-"""Painting a beach scene in space with water, sand, palm trees, a boat, and a sun."""
+"""Paint a beach scene in space.
+
+The scene includes blue water, red sand, palm trees, a boat, a sun,
+waves, starfish, and a border. The drawing procedures use X/Y
+coordinates and extra size or height parameters. Palm trees use a
+while loop to repeat their leaves. The scene uses filled shapes
+and non-cyan outline colors.
+"""
 
 from math import atan2, degrees, sqrt
 
@@ -12,20 +19,23 @@ def main(aura: Ship) -> None:
     draw_border(ship=aura)
     draw_beach(ship=aura, x=0.0, y=0.0)
 
-    draw_sun(ship=aura, x=5.5, y=4.2, size=1.0)
-    draw_boat(ship=aura, x=2.5, y=1)
-    draw_palm(ship=aura, x=-4.5, y=-2.5, height=4.0)
-    draw_palm(ship=aura, x=-2.5, y=-2.5, height=3.2)
-    draw_palm(ship=aura, x=-0.5, y=-2.5, height=3.5)
+    draw_sun(ship=aura, x=5.0, y=1.0, size=0.3)
+    draw_boat(ship=aura, x=2.0, y=0.4)
 
-    draw_starfish(ship=aura, x=3.0, y=-3.0, size=0.5)
-    draw_starfish(ship=aura, x=4.5, y=-3.2, size=0.2)
+    draw_palm(ship=aura, x=-4.5, y=-1.1, height=1.3)
+    draw_palm(ship=aura, x=-3.5, y=-1.1, height=1.1)
+    draw_palm(ship=aura, x=-2.5, y=-1.1, height=1.2)
+
+    draw_starfish(ship=aura, x=2.5, y=-1.15, size=0.25)
 
     return None
 
 
 def angle_between(ship: Ship, x: float, y: float) -> float:
     """Compute the shortest turn from the ship's heading toward an X/Y point."""
+    if x == ship.x and y == ship.y:
+        return 0.0
+
     turn: float = degrees(atan2(y - ship.y, x - ship.x)) - ship.heading_x_y
 
     if turn > 180:
@@ -37,209 +47,155 @@ def angle_between(ship: Ship, x: float, y: float) -> float:
 
 
 def distance_between(ship: Ship, x: float, y: float) -> float:
-    """Compute the distance from the ship to an X/Y point."""
+    """Compute the distance from the ship to an X/Y point"""
     return sqrt((y - ship.y) ** 2 + (x - ship.x) ** 2)
 
 
 def move_to(ship: Ship, x: float, y: float) -> None:
-    """Move the ship from its current position to an X/Y point."""
+    """Move the ship from its current position to an X/Y point"""
     ship.turn(degrees=angle_between(ship, x, y))
     ship.forward(units=distance_between(ship, x, y))
     return None
 
 
 def draw_beach(ship: Ship, x: float, y: float) -> None:
-    """Paint blue water and red sand separated by a downward-sloping zigzag."""
+    """Paint blue water and red sand separated by shoreline and call to draw waves"""
     ship.beam(on=False)
-    ship.beam_width(width=0.08)
+    ship.beam_width(width=0.05)
 
     # Blue water
     ship.beam_color(value="blue")
-    move_to(ship, x - 6.0, y - 0.5)
+    move_to(ship, x - 6.0, y - 0.25)
     ship.fill(on=True, opacity=0.6)
     ship.beam(on=True)
 
-    move_to(ship, x - 5.5, y - 0.8)
-    move_to(ship, x - 5.0, y - 0.5)
-    move_to(ship, x - 4.5, y - 1.0)
-    move_to(ship, x - 4.0, y - 0.7)
-    move_to(ship, x - 3.5, y - 1.2)
-    move_to(ship, x - 3.0, y - 0.9)
-    move_to(ship, x - 2.5, y - 1.4)
-    move_to(ship, x - 2.0, y - 1.1)
-    move_to(ship, x - 1.5, y - 1.6)
-    move_to(ship, x - 1.0, y - 1.3)
-    move_to(ship, x - 0.5, y - 1.8)
-    move_to(ship, x, y - 1.5)
-    move_to(ship, x + 0.5, y - 2.0)
-    move_to(ship, x + 1.0, y - 1.7)
-    move_to(ship, x + 1.5, y - 2.2)
-    move_to(ship, x + 2.0, y - 1.9)
-    move_to(ship, x + 2.5, y - 2.4)
-    move_to(ship, x + 3.0, y - 2.1)
-    move_to(ship, x + 3.5, y - 2.6)
-    move_to(ship, x + 4.0, y - 2.3)
-    move_to(ship, x + 4.5, y - 2.8)
-    move_to(ship, x + 5.0, y - 2.5)
-    move_to(ship, x + 5.5, y - 3.0)
-    move_to(ship, x + 6.0, y - 2.7)
-    move_to(ship, x + 6.5, y - 3.2)
-    move_to(ship, x + 7.0, y - 2.9)
-    move_to(ship, x + 7.5, y - 3.4)
-    move_to(ship, x + 8.0, y - 3.1)
+    move_to(ship, x - 4.0, y - 0.35)
+    move_to(ship, x - 2.0, y - 0.45)
+    move_to(ship, x, y - 0.55)
+    move_to(ship, x + 2.0, y - 0.65)
+    move_to(ship, x + 4.0, y - 0.75)
+    move_to(ship, x + 6.0, y - 0.85)
+    move_to(ship, x + 8.0, y - 0.95)
 
-    move_to(ship, x + 8.0, y + 7.0)
-    move_to(ship, x - 6.0, y + 7.0)
-    move_to(ship, x - 6.0, y - 0.5)
+    move_to(ship, x + 8.0, y + 1.5)
+    move_to(ship, x - 6.0, y + 1.5)
+    move_to(ship, x - 6.0, y - 0.25)
 
     ship.beam(on=False)
     ship.fill(on=False)
 
     # Red sand
     ship.beam_color(value="red")
-    move_to(ship, x - 6.0, y - 0.5)
+    move_to(ship, x - 6.0, y - 0.25)
     ship.fill(on=True, opacity=0.6)
     ship.beam(on=True)
 
-    move_to(ship, x - 5.5, y - 0.8)
-    move_to(ship, x - 5.0, y - 0.5)
-    move_to(ship, x - 4.5, y - 1.0)
-    move_to(ship, x - 4.0, y - 0.7)
-    move_to(ship, x - 3.5, y - 1.2)
-    move_to(ship, x - 3.0, y - 0.9)
-    move_to(ship, x - 2.5, y - 1.4)
-    move_to(ship, x - 2.0, y - 1.1)
-    move_to(ship, x - 1.5, y - 1.6)
-    move_to(ship, x - 1.0, y - 1.3)
-    move_to(ship, x - 0.5, y - 1.8)
-    move_to(ship, x, y - 1.5)
-    move_to(ship, x + 0.5, y - 2.0)
-    move_to(ship, x + 1.0, y - 1.7)
-    move_to(ship, x + 1.5, y - 2.2)
-    move_to(ship, x + 2.0, y - 1.9)
-    move_to(ship, x + 2.5, y - 2.4)
-    move_to(ship, x + 3.0, y - 2.1)
-    move_to(ship, x + 3.5, y - 2.6)
-    move_to(ship, x + 4.0, y - 2.3)
-    move_to(ship, x + 4.5, y - 2.8)
-    move_to(ship, x + 5.0, y - 2.5)
-    move_to(ship, x + 5.5, y - 3.0)
-    move_to(ship, x + 6.0, y - 2.7)
-    move_to(ship, x + 6.5, y - 3.2)
-    move_to(ship, x + 7.0, y - 2.9)
-    move_to(ship, x + 7.5, y - 3.4)
-    move_to(ship, x + 8.0, y - 3.1)
+    move_to(ship, x - 4.0, y - 0.35)
+    move_to(ship, x - 2.0, y - 0.45)
+    move_to(ship, x, y - 0.55)
+    move_to(ship, x + 2.0, y - 0.65)
+    move_to(ship, x + 4.0, y - 0.75)
+    move_to(ship, x + 6.0, y - 0.85)
+    move_to(ship, x + 8.0, y - 0.95)
 
-    move_to(ship, x + 8.0, y - 4.0)
-    move_to(ship, x - 6.0, y - 4.0)
-    move_to(ship, x - 6.0, y - 0.5)
+    move_to(ship, x + 8.0, y - 1.5)
+    move_to(ship, x - 6.0, y - 1.5)
+    move_to(ship, x - 6.0, y - 0.25)
 
     ship.beam(on=False)
     ship.fill(on=False)
 
-    # Red outline along the shoreline
+    # Shoreline
     ship.beam_color(value="red")
-    ship.beam_width(width=0.1)
-    move_to(ship, x - 6.0, y - 0.5)
-    ship.beam(on=True)
-
-    move_to(ship, x - 5.5, y - 0.8)
-    move_to(ship, x - 5.0, y - 0.5)
-    move_to(ship, x - 4.5, y - 1.0)
-    move_to(ship, x - 4.0, y - 0.7)
-    move_to(ship, x - 3.5, y - 1.2)
-    move_to(ship, x - 3.0, y - 0.9)
-    move_to(ship, x - 2.5, y - 1.4)
-    move_to(ship, x - 2.0, y - 1.1)
-    move_to(ship, x - 1.5, y - 1.6)
-    move_to(ship, x - 1.0, y - 1.3)
-    move_to(ship, x - 0.5, y - 1.8)
-    move_to(ship, x, y - 1.5)
-    move_to(ship, x + 0.5, y - 2.0)
-    move_to(ship, x + 1.0, y - 1.7)
-    move_to(ship, x + 1.5, y - 2.2)
-    move_to(ship, x + 2.0, y - 1.9)
-    move_to(ship, x + 2.5, y - 2.4)
-    move_to(ship, x + 3.0, y - 2.1)
-    move_to(ship, x + 3.5, y - 2.6)
-    move_to(ship, x + 4.0, y - 2.3)
-    move_to(ship, x + 4.5, y - 2.8)
-    move_to(ship, x + 5.0, y - 2.5)
-    move_to(ship, x + 5.5, y - 3.0)
-    move_to(ship, x + 6.0, y - 2.7)
-    move_to(ship, x + 6.5, y - 3.2)
-    move_to(ship, x + 7.0, y - 2.9)
-    move_to(ship, x + 7.5, y - 3.4)
-    move_to(ship, x + 8.0, y - 3.1)
-
-    ship.beam(on=False)
-
-    # Waves
-    ship.beam_color(value="cyan")
     ship.beam_width(width=0.06)
 
-    move_to(ship, x, y)
+    move_to(ship, x - 6.0, y - 0.25)
     ship.beam(on=True)
-    move_to(ship, x + 0.5, y + 0.2)
-    move_to(ship, x + 1.0, y)
-    move_to(ship, x + 1.5, y + 0.2)
-    move_to(ship, x + 2.0, y)
-    move_to(ship, x + 2.5, y + 0.2)
-    move_to(ship, x + 3.0, y)
-    move_to(ship, x + 3.5, y + 0.2)
-    move_to(ship, x + 4.0, y)
+
+    move_to(ship, x - 4.0, y - 0.35)
+    move_to(ship, x - 2.0, y - 0.45)
+    move_to(ship, x, y - 0.55)
+    move_to(ship, x + 2.0, y - 0.65)
+    move_to(ship, x + 4.0, y - 0.75)
+    move_to(ship, x + 6.0, y - 0.85)
+    move_to(ship, x + 8.0, y - 0.95)
+
     ship.beam(on=False)
 
-    move_to(ship, x + 0.7, y - 0.6)
+    draw_waves(ship=ship, x=x, y=y)
+
+    return None
+
+
+def draw_waves(ship: Ship, x: float, y: float) -> None:
+    """Draw cyan zigzag waves in the water"""
+    ship.beam(on=False)
+    ship.beam_color(value="cyan")
+    ship.beam_width(width=0.04)
+
+    move_to(ship, x + 0.5, y + 0.1)
     ship.beam(on=True)
-    move_to(ship, x + 1.2, y - 0.4)
-    move_to(ship, x + 1.7, y - 0.6)
-    move_to(ship, x + 2.2, y - 0.4)
-    move_to(ship, x + 2.7, y - 0.6)
-    move_to(ship, x + 3.2, y - 0.4)
-    move_to(ship, x + 3.7, y - 0.6)
-    move_to(ship, x + 4.2, y - 0.4)
+    move_to(ship, x + 1.0, y + 0.2)
+    move_to(ship, x + 1.5, y + 0.1)
+    move_to(ship, x + 2.0, y + 0.2)
+    move_to(ship, x + 2.5, y + 0.1)
+    move_to(ship, x + 3.0, y + 0.2)
+    move_to(ship, x + 3.5, y + 0.1)
+    move_to(ship, x + 4.0, y + 0.2)
+    ship.beam(on=False)
+
+    move_to(ship, x + 0.8, y - 0.05)
+    ship.beam(on=True)
+    move_to(ship, x + 1.3, y + 0.05)
+    move_to(ship, x + 1.8, y - 0.05)
+    move_to(ship, x + 2.3, y + 0.05)
+    move_to(ship, x + 2.8, y - 0.05)
+    move_to(ship, x + 3.3, y + 0.05)
+    move_to(ship, x + 3.8, y - 0.05)
     ship.beam(on=False)
 
     return None
 
 
 def draw_boat(ship: Ship, x: float, y: float) -> None:
-    """Draw a purple sailboat above the waves."""
+    """Draw a purple sailboat above the waves"""
     ship.beam(on=False)
 
     # Purple boat
     ship.beam_color(value="purple")
-    ship.beam_width(width=0.08)
+    ship.beam_width(width=0.05)
 
-    move_to(ship, x - 1.2, y)
+    move_to(ship, x - 0.7, y)
     ship.fill(on=True, opacity=0.7)
     ship.beam(on=True)
 
-    move_to(ship, x + 1.2, y)
-    move_to(ship, x + 0.7, y - 0.8)
-    move_to(ship, x - 0.8, y - 0.8)
-    move_to(ship, x - 1.2, y)
+    move_to(ship, x + 0.7, y)
+    move_to(ship, x + 0.4, y - 0.3)
+    move_to(ship, x - 0.5, y - 0.3)
+    move_to(ship, x - 0.7, y)
 
     ship.beam(on=False)
     ship.fill(on=False)
 
     # Mast
     ship.beam_color(value="orange")
-    ship.beam_width(width=0.06)
+    ship.beam_width(width=0.04)
+
     move_to(ship, x, y)
     ship.beam(on=True)
-    move_to(ship, x, y + 2.3)
+    move_to(ship, x, y + 0.9)
     ship.beam(on=False)
 
     # Sail
     ship.beam_color(value="white")
-    move_to(ship, x, y + 2.3)
+
+    move_to(ship, x, y + 0.9)
     ship.fill(on=True, opacity=0.7)
     ship.beam(on=True)
-    move_to(ship, x + 1.0, y + 0.1)
-    move_to(ship, x, y + 0.1)
-    move_to(ship, x, y + 2.3)
+
+    move_to(ship, x + 0.6, y + 0.05)
+    move_to(ship, x, y + 0.05)
+    move_to(ship, x, y + 0.9)
 
     ship.beam(on=False)
     ship.fill(on=False)
@@ -248,13 +204,13 @@ def draw_boat(ship: Ship, x: float, y: float) -> None:
 
 
 def draw_sun(ship: Ship, x: float, y: float, size: float) -> None:
-    """Draw a yellow sun with rays."""
+    """Paint a yellow sun at X/Y with a size controlled by the size parameter."""
     ship.beam(on=False)
-    ship.beam_color(value="orange")
-    ship.beam_width(width=0.07)
+    ship.beam_color(value="yellow")
+    ship.beam_width(width=0.04)
 
     # Filled sun
-    move_to(ship, x + size, y)
+    move_to(ship, x + size - 0.2, y - 0.2)
     ship.fill(on=True, opacity=0.7)
     ship.beam(on=True)
     ship.arc(radius=size, degrees=360.0)
@@ -262,149 +218,145 @@ def draw_sun(ship: Ship, x: float, y: float, size: float) -> None:
     ship.fill(on=False)
 
     # Rays
-    move_to(ship, x + 1.5, y + 0.2)
+    move_to(ship, x + 0.5, y)
     ship.beam(on=True)
-    move_to(ship, x + 2.3, y + 0.2)
+    move_to(ship, x + 0.8, y)
     ship.beam(on=False)
 
-    move_to(ship, x + 0.2, y + 1.5)
+    move_to(ship, x, y + 0.5)
     ship.beam(on=True)
-    move_to(ship, x + 0.2, y + 2.2)
+    move_to(ship, x, y + 0.8)
     ship.beam(on=False)
 
-    move_to(ship, x + 1.1, y + 1.1)
+    move_to(ship, x, y - 0.5)
     ship.beam(on=True)
-    move_to(ship, x + 1.7, y + 1.7)
+    move_to(ship, x, y - 0.8)
     ship.beam(on=False)
 
-    move_to(ship, x + 1.1, y - 0.7)
+    move_to(ship, x + 0.35, y + 0.35)
     ship.beam(on=True)
-    move_to(ship, x + 1.7, y - 1.3)
+    move_to(ship, x + 0.6, y + 0.6)
     ship.beam(on=False)
 
-    move_to(ship, x - 1.1, y + 0.2)
+    move_to(ship, x + 0.35, y - 0.35)
     ship.beam(on=True)
-    move_to(ship, x - 1.9, y + 0.2)
+    move_to(ship, x + 0.6, y - 0.6)
     ship.beam(on=False)
 
-    move_to(ship, x - 0.7, y + 1.1)
+    move_to(ship, x - 0.5, y)
     ship.beam(on=True)
-    move_to(ship, x - 1.3, y + 1.7)
+    move_to(ship, x - 0.8, y)
     ship.beam(on=False)
 
-    move_to(ship, x - 0.7, y - 0.7)
+    move_to(ship, x - 0.35, y + 0.35)
     ship.beam(on=True)
-    move_to(ship, x - 1.3, y - 1.3)
+    move_to(ship, x - 0.6, y + 0.6)
     ship.beam(on=False)
 
-    move_to(ship, x + 0.2, y - 1.1)
+    move_to(ship, x - 0.35, y - 0.35)
     ship.beam(on=True)
-    move_to(ship, x + 0.2, y - 1.8)
+    move_to(ship, x - 0.6, y - 0.6)
     ship.beam(on=False)
 
     return None
 
 
 def draw_palm(ship: Ship, x: float, y: float, height: float) -> None:
-    """Draw a palm tree with a straight trunk and green leaves."""
+    """Paint a palm tree at X/Y with a trunk height controlled by height."""
     ship.beam(on=False)
 
     # Trunk
     ship.beam_color(value="orange")
-    ship.beam_width(width=0.07)
+    ship.beam_width(width=0.04)
+
     move_to(ship, x, y)
     ship.beam(on=True)
     move_to(ship, x, y + height)
     ship.beam(on=False)
 
     # Leaves
-    draw_palm_leaves(ship=ship, x=x, y=y + height)
-
-    return None
-
-
-def draw_palm_leaves(ship: Ship, x: float, y: float) -> None:
-    """Draw four narrow, long diamond-shaped palm leaves."""
     ship.beam_color(value="green")
-    ship.beam_width(width=0.05)
+    ship.beam_width(width=0.035)
 
-    # Left leaf
-    move_to(ship, x, y)
-    ship.beam(on=True)
-    move_to(ship, x - 1.3, y + 0.5)
-    move_to(ship, x - 0.7, y)
-    move_to(ship, x - 1.3, y - 0.5)
-    move_to(ship, x, y)
-    ship.beam(on=False)
+    count: int = 0
 
-    # Right leaf
-    move_to(ship, x, y)
-    ship.beam(on=True)
-    move_to(ship, x + 1.3, y + 0.5)
-    move_to(ship, x + 0.7, y)
-    move_to(ship, x + 1.3, y - 0.5)
-    move_to(ship, x, y)
-    ship.beam(on=False)
+    while count < 4:
+        move_to(ship, x, y + height)
+        ship.beam(on=True)
 
-    # Top leaf
-    move_to(ship, x, y)
-    ship.beam(on=True)
-    move_to(ship, x - 0.35, y + 1.3)
-    move_to(ship, x, y + 0.7)
-    move_to(ship, x + 0.35, y + 1.3)
-    move_to(ship, x, y)
-    ship.beam(on=False)
+        if count == 0:
+            move_to(ship, x - 0.7, y + height + 0.25)
+            move_to(ship, x - 0.4, y + height)
+            move_to(ship, x - 0.7, y + height - 0.25)
+        elif count == 1:
+            move_to(ship, x + 0.7, y + height + 0.25)
+            move_to(ship, x + 0.4, y + height)
+            move_to(ship, x + 0.7, y + height - 0.25)
+        elif count == 2:
+            move_to(ship, x - 0.2, y + height + 0.7)
+            move_to(ship, x, y + height + 0.4)
+            move_to(ship, x + 0.2, y + height + 0.7)
+        else:
+            move_to(ship, x - 0.2, y + height - 0.7)
+            move_to(ship, x, y + height - 0.4)
+            move_to(ship, x + 0.2, y + height - 0.7)
 
-    # Bottom leaf
-    move_to(ship, x, y)
-    ship.beam(on=True)
-    move_to(ship, x - 0.35, y - 1.3)
-    move_to(ship, x, y - 0.7)
-    move_to(ship, x + 0.35, y - 1.3)
-    move_to(ship, x, y)
-    ship.beam(on=False)
+        move_to(ship, x, y + height)
+        ship.beam(on=False)
+
+        count += 1
 
     return None
 
 
 def draw_starfish(ship: Ship, x: float, y: float, size: float) -> None:
-    """Draw a simple orange starfish."""
+    """Paint five starfish from X/Y with descending sizes using a while loop."""
     ship.beam(on=False)
     ship.beam_color(value="orange")
-    ship.beam_width(width=0.06)
+    ship.beam_width(width=0.035)
 
-    move_to(ship, x, y + size)
-    ship.fill(on=True, opacity=0.7)
-    ship.beam(on=True)
-    move_to(ship, x + size * 0.3, y + size * 0.3)
-    move_to(ship, x + size, y + size * 0.3)
-    move_to(ship, x + size * 0.5, y - size * 0.1)
-    move_to(ship, x + size * 0.7, y - size)
-    move_to(ship, x, y - size * 0.4)
-    move_to(ship, x - size * 0.7, y - size)
-    move_to(ship, x - size * 0.5, y - size * 0.1)
-    move_to(ship, x - size, y + size * 0.3)
-    move_to(ship, x - size * 0.3, y + size * 0.3)
-    move_to(ship, x, y + size)
-    ship.beam(on=False)
-    ship.fill(on=False)
+    count: int = 0
+
+    while count < 5:
+        current_size: float = size - count * 0.03
+        current_x: float = x + count * 0.6
+
+        move_to(ship, current_x, y + current_size)
+        ship.fill(on=True, opacity=0.7)
+        ship.beam(on=True)
+
+        move_to(ship, current_x + current_size * 0.3, y + current_size * 0.3)
+        move_to(ship, current_x + current_size, y + current_size * 0.3)
+        move_to(ship, current_x + current_size * 0.5, y - current_size * 0.1)
+        move_to(ship, current_x + current_size * 0.7, y - current_size)
+        move_to(ship, current_x, y - current_size * 0.4)
+        move_to(ship, current_x - current_size * 0.7, y - current_size)
+        move_to(ship, current_x - current_size * 0.5, y - current_size * 0.1)
+        move_to(ship, current_x - current_size, y + current_size * 0.3)
+        move_to(ship, current_x - current_size * 0.3, y + current_size * 0.3)
+        move_to(ship, current_x, y + current_size)
+
+        ship.beam(on=False)
+        ship.fill(on=False)
+
+        count += 1
 
     return None
 
 
 def draw_border(ship: Ship) -> None:
-    """Draw a black box around the entire beach scene."""
+    """Draw a black box around the entire beach scene"""
     ship.beam(on=False)
     ship.beam_color(value="#000000")
-    ship.beam_width(width=0.1)
+    ship.beam_width(width=0.06)
 
-    move_to(ship, -6.0, -4.0)
+    move_to(ship, -6.0, -1.5)
 
     ship.beam(on=True)
-    move_to(ship, 8.0, -4.0)
-    move_to(ship, 8.0, 7.0)
-    move_to(ship, -6.0, 7.0)
-    move_to(ship, -6.0, -4.0)
+    move_to(ship, 8.0, -1.5)
+    move_to(ship, 8.0, 1.5)
+    move_to(ship, -6.0, 1.5)
+    move_to(ship, -6.0, -1.5)
     ship.beam(on=False)
 
     return None
