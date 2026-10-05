@@ -17,6 +17,7 @@
   "python.testing.pytestArgs": [
     "."
   ],
+  "ruff.lint.ignore": ["PLR1730", "PIE790"],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true
 }

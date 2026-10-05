@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090c15">
+    <title>daft comp · Studio</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/studio.css">
+    <script type="module" src="/static/studio.js"></script>
+  </head>
+  <body data-mode="step" data-state="idle">
+    <main>
+      <header class="masthead">
+        <a class="wordmark" href="/studio" aria-label="daft comp studio"><img class="brand-logo" src="/static/daft-comp-logo.png" alt="daft comp" width="1942" height="809"></a>
+        <span class="eyebrow">Play it. Copy the list.</span>
+      </header>
+      <section class="song-heading studio-heading" aria-labelledby="studio-title">
+        <h1 id="studio-title">Keyboard studio</h1>
+        <p class="summary">Play notes and drums on your computer keyboard. Every step you play becomes one entry in a Python list, ready to paste into your score.</p>
+      </section>
+
+      <section class="toolbar" aria-label="Recording settings">
+        <fieldset class="mode-switch">
+          <legend class="sr-only">Recording mode</legend>
+          <label><input type="radio" name="mode" value="step" checked> Step entry</label>
+          <label><input type="radio" name="mode" value="live"> Live record</label>
+        </fieldset>
+        <label class="tempo-control" for="tempo">Tempo <span><input id="tempo" type="number" min="30" max="300" step="1" value="120"> BPM</span></label>
+        <label class="studio-select" for="steps-per-beat">Steps per beat <select id="steps-per-beat"><option value="1">1</option><option value="2" selected>2</option><option value="4">4</option></select></label>
+        <label class="studio-select live-only" for="take-length">Take length <select id="take-length"><option value="1">1 bar</option><option value="2">2 bars</option><option value="4" selected>4 bars</option><option value="8">8 bars</option><option value="16">16 bars</option><option value="0">Until I stop</option></select></label>
+        <label class="loop-control live-only" for="click-track"><input id="click-track" type="checkbox" checked> Click track</label>
+        <label class="master-control" for="master-volume">Master <input id="master-volume" type="range" min="0" max="100" value="80" aria-label="Master volume"><output id="master-volume-value" for="master-volume">80%</output></label>
+      </section>
+
+      <div id="parts" class="part-tabs" role="radiogroup" aria-label="Part to play"></div>
+
+      <section class="instrument" aria-labelledby="instrument-title">
+        <div class="instrument-heading">
+          <h2 id="instrument-title">Melody</h2>
+          <div id="voice-switch" class="voice-switch" role="radiogroup" aria-label="Instrument" hidden></div>
+          <p id="instrument-detail" class="instrument-detail"></p>
+        </div>
+        <div id="piano" class="piano" aria-hidden="true"></div>
+        <div id="pads" class="pads" aria-hidden="true" hidden></div>
+        <p id="key-help" class="key-help"></p>
+      </section>
+
+      <section class="studio-transport" aria-label="Transport">
+        <button id="record" class="record live-only" type="button">● Record</button>
+        <button id="play-all" class="primary" type="button">▶ Play all</button>
+        <button id="stop" type="button" disabled>■ Stop</button>
+        <button id="undo" type="button" disabled>↶ Undo</button>
+        <button id="clear-part" type="button">Clear part</button>
+        <p id="studio-status" class="studio-status" role="status" aria-live="polite">Press a key to start playing.</p>
+      </section>
+      <p id="studio-error" class="error" role="alert" hidden></p>
+
+      <section class="step-editor" aria-label="Selected step">
+        <button id="step-prev" type="button" aria-label="Previous step">◀</button>
+        <button id="step-next" type="button" aria-label="Next step">▶</button>
+        <p id="step-detail" class="step-detail" role="status" aria-live="polite"></p>
+        <button id="step-rest" type="button">REST <kbd>Space</kbd></button>
+        <button id="step-hold" type="button">HOLD <kbd>-</kbd></button>
+        <button id="step-delete" type="button">Delete <kbd>⌫</kbd></button>
+      </section>
+
+      <section class="lanes-panel" aria-label="Your lists">
+        <div id="lanes" class="lanes"></div>
+      </section>
+
+      <section class="code-panel" aria-labelledby="code-title">
+        <h2 id="code-title">Paste into Python</h2>
+        <div class="code-block">
+          <div class="code-heading"><span id="part-code-label">Melody list</span><button id="copy-part" type="button">Copy list</button></div>
+          <pre><code id="part-code"></code></pre>
+        </div>
+        <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <footer>
+        <p>Your takes stay in this browser tab's storage until you clear them. The studio never changes your Python files; paste a list where you want it.</p>
+      </footer>
+    </main>
+  </body>
+</html>

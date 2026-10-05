@@ -1,0 +1,49 @@
+[project]
+name = "daftcomp"
+version = "0.1.0rc1"
+description = "Compose music with Python lists in COMP110"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.141.1,<1",
+    "uvicorn>=0.34,<1",
+]
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+# Expose the exercises and player to direct-file launches in the project environment.
+dev-mode-dirs = [".", "src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/daftcomp"]
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.411",
+    "pytest>=9.1.1",
+    "ruff>=0.15.20",
+]
+
+[tool.pytest.ini_options]
+addopts = ["--strict-config", "--strict-markers"]
+testpaths = ["tests", "list_utils"]
+pythonpath = ["."]
+
+[tool.pyright]
+include = ["src", "list_utils", "scripts", "tests"]
+extraPaths = ["src"]
+pythonVersion = "3.11"
+typeCheckingMode = "strict"
+reportUnnecessaryIsInstance = false
+venv = ".venv"
+venvPath = "."
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "ANN"]

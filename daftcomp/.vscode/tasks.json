@@ -1,0 +1,90 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Daftcomp: Rehearsal",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "list_utils/rehearsal.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Daftcomp: Play Unlocked Song",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "list_utils/song.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Daftcomp: Run EX04 Tests",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "-m",
+        "pytest"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Create EX04 - Daftcomp Submission",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "scripts/export_daftcomp_exercise.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    }
+  ]
+}

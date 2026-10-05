@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090c15">
+    <title>daft comp · Player</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script type="module" src="/static/player.js"></script>
+  </head>
+  <body>
+    <main>
+      <header class="masthead">
+        <a class="wordmark" href="/" aria-label="daft comp player"><img class="brand-logo" src="/static/daft-comp-logo.png" alt="daft comp" width="1942" height="809"></a>
+        <span class="eyebrow">Lists in. Lights out.</span>
+      </header>
+      <section class="song-heading" aria-labelledby="song-title">
+        <h1 id="song-title">Loading your score…</h1>
+        <p id="song-summary" class="summary"></p>
+        <p id="session-label" class="session"></p>
+        <div class="club-stamp" aria-hidden="true"><span>110</span><small>PLAY / LOOP / CREATE</small></div>
+      </section>
+      <section class="toolbar" aria-label="Playback and listening settings">
+        <div class="transport-buttons">
+          <button id="play" class="primary" type="button" disabled>▶ Play</button>
+          <button id="stop" type="button" disabled>■ Stop</button>
+        </div>
+        <label class="tempo-control" for="tempo">Tempo <span><input id="tempo" type="number" min="30" max="300" step="1" disabled> BPM</span></label>
+        <label class="loop-control" for="loop"><input id="loop" type="checkbox" disabled> Loop whole song</label>
+        <label class="master-control" for="master-volume">Master <input id="master-volume" type="range" min="0" max="100" value="80" aria-label="Master volume" aria-valuetext="80 percent" disabled><output id="master-volume-value" for="master-volume">80%</output></label>
+      </section>
+      <p id="tempo-error" class="error" role="alert" hidden></p>
+      <div class="status-line">
+        <p id="playback-status" role="status" aria-live="polite">Loading score</p>
+        <p id="playhead" class="playhead">Playback starts at index 0.</p>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+      <p id="reload-status" class="reload-status" role="status" aria-live="polite" hidden></p>
+      <section id="signal-panel" class="signal-panel" aria-label="Live master waveform">
+        <div class="signal-heading"><span class="signal-title">Live signal <span>Master output</span></span><span id="signal-status">Ready · no signal</span><button id="motion-toggle" type="button" aria-label="Animate waveform" aria-pressed="true">Motion on</button></div>
+        <canvas id="waveform" width="1200" height="128" role="img" aria-label="Live waveform of the combined audio output" aria-describedby="waveform-description">A waveform displays the combined sound. Playback also works without this visual.</canvas>
+        <div class="signal-axis"><span aria-hidden="true">TIME →</span><label>Fixed view gain <select id="waveform-gain" aria-label="Waveform display gain"><option value="1">×1</option><option value="2">×2</option><option value="4">×4</option><option value="8" selected>×8</option></select></label></div>
+        <p id="waveform-description" class="sr-only">The waveform follows the actual combined audio after mute and volume controls. Display gain is fixed at the selected scale, initially eight times. It does not change the sound. Animation can be turned off.</p>
+      </section>
+      <div id="tracks" aria-label="Composition tracks"></div>
+      <div id="volume-popovers"></div>
+      <section class="inspector" aria-label="Selected step">
+        <p id="step-details"></p>
+        <p class="keyboard-hint">Select a value to inspect it. Arrow keys move between steps and tracks; Home/End jump within a track.</p>
+      </section>
+      <details id="source-lists" class="source-lists">
+        <summary>Source lists at launch</summary>
+        <p>These relationships were captured at launch during the latest Python run. This page contains a snapshot of your Python lists, not live references to them.</p>
+        <ol id="source-groups"></ol>
+        <p>Equal values can belong to different list objects. Listening controls change sound settings without changing your Python lists.</p>
+      </details>
+      <footer>
+        <p id="edit-instructions">Change your lists in Python, run your program again, then click Play.</p>
+        <p><a class="studio-link" href="/studio" target="_blank" rel="noopener">Open the keyboard studio</a> to play a part and copy it as a list.</p>
+        <p id="connection-status" role="status" aria-live="polite">Checking player server…</p>
+      </footer>
+    </main>
+  </body>
+</html>
