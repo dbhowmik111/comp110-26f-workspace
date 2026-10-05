@@ -24,13 +24,22 @@ def scale_range(start: int, stop: int, step: int) -> list[int]:
 
 
 def shift_mutate(original: list[int], offset: int) -> None:
-    """Add offset to EVERY integer in the caller's list; return None."""
-    raise NotImplementedError("Assign to each index of the original list.")
+    """Add offset to every integer in the original list."""
+    i: int = 0
+    while i < len(original):
+        original[i] = original[i] + offset
+        i += 1
 
 
 def shift_pure(original: list[int], offset: int) -> list[int]:
     """Return a new list with offset added to EVERY integer; preserve original."""
-    raise NotImplementedError("Build an independent list of shifted integers.")
+    i: int = 0
+    shifted: list[int] = []
+
+    while i < len(original):
+        shifted.append(original[i] + offset)
+        i += 1
+    return shifted
 
 
 def reverse(original: list[int]) -> list[int]:
