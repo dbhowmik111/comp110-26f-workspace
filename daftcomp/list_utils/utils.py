@@ -1,11 +1,27 @@
 """Implement the six list functions described in README.md using while loops."""
 
-__author__: str = "000000000"
+__author__: str = "730986400"
 
 
 def scale_range(start: int, stop: int, step: int) -> list[int]:
     """Build a range with an exclusive stop; assert that step is nonzero."""
     raise NotImplementedError("Build a new list using a while loop and append.")
+    assert step != 0
+
+    i: int = start
+    range_list: list[int] = []
+
+    if step > 0:
+        while i < stop:
+            range_list.append(i)
+            i += step
+
+    elif step < 0:
+        while i > stop:
+            range_list.append(i)
+            i += step
+
+    return range_list
 
 
 def shift_mutate(original: list[int], offset: int) -> None:
