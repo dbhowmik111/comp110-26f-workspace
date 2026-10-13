@@ -13,7 +13,7 @@ examples. Replace each raise NotImplementedError("TODO: ...") with your
 own code.
 """
 
-__author__: str = ""  # TODO: your 9-digit PID, like "730123456"
+__author__: str = "730986400"  # TODO: your 9-digit PID, like "730123456"
 
 from goodfire import science
 from goodfire import terrain
@@ -111,14 +111,15 @@ class Polyline:
     points: list[Point]
     cover: str
 
-    def __init__(self, points: list[Point], cover: str):
+    def __init__(self, points: list[Point], cover: str) -> None:
         """Create a line.
 
         Args:
             points: The points, in drawing order.
             cover: What the line becomes, like "river" or "road".
         """
-        raise NotImplementedError("TODO: Polyline.__init__")
+        self.points = points
+        self.cover = cover
 
     def __str__(self) -> str:
         """Describe the line for the sketch list, in meters."""
@@ -129,11 +130,21 @@ class Polyline:
 
     def __repr__(self) -> str:
         """Show the code that rebuilds this line (used by saved sketches)."""
-        raise NotImplementedError("TODO: Polyline.__repr__")
+        return f"Polyline(points={self.points!r}, cover={self.cover!r})"
 
     def length(self) -> float:
         """Return the total length, measured in squares."""
-        raise NotImplementedError("TODO: Polyline.length")
+        total: float = 0.0
+        index: int = 0
+        while index < len(self.points) - 1:
+            a: Point = self.points[index]
+            b: Point = self.points[index + 1]
+            distance: float = (
+                (b.row - a.row) ** 2 + (b.col - a.col) ** 2
+            ) ** 0.5
+            total += distance
+            index += 1
+        return total
 
     def squares(self) -> list[Square]:
         """Return the squares the line passes through, in drawing order.

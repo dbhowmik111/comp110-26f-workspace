@@ -11,7 +11,7 @@ examples. Replace each raise NotImplementedError("TODO: ...") with your
 own code.
 """
 
-__author__: str = ""  # TODO: your 9-digit PID, like "730123456"
+__author__: str = "730986400"  # TODO: your 9-digit PID, like "730123456"
 
 from comp110_gui import Canvas
 
@@ -78,11 +78,11 @@ class Home:
 
     def is_home(self) -> bool:
         """Return True: this square is a home."""
-        raise NotImplementedError("TODO: Home.is_home")
+        return True
 
     def can_ignite(self) -> bool:
         """Return True while the home is safe."""
-        raise NotImplementedError("TODO: Home.can_ignite")
+        return self.state == "safe"
 
     def ignition_chance(self) -> float:
         """Homes resist ignition; Firewise homes resist much more."""
@@ -93,7 +93,8 @@ class Home:
 
     def ignite(self) -> None:
         """Catch fire; a home burns for four steps."""
-        raise NotImplementedError("TODO: Home.ignite")
+        self.state = "burning"
+        self.time_left = 4
 
     def burn(self) -> None:
         """Burn for one step."""
@@ -103,7 +104,7 @@ class Home:
 
     def is_burning(self) -> bool:
         """Return True while the home is on fire."""
-        raise NotImplementedError("TODO: Home.is_burning")
+        return self.state == "burning"
 
     def color(self) -> str:
         """Return a yard color for the home's square."""
@@ -156,11 +157,11 @@ class Water:
 
     def is_home(self) -> bool:
         """Return False: this square is not a home."""
-        raise NotImplementedError("TODO: Water.is_home")
+        return False
 
     def can_ignite(self) -> bool:
         """Water never catches fire."""
-        raise NotImplementedError("TODO: Water.can_ignite")
+        return False
 
     def ignition_chance(self) -> float:
         """Water never catches fire."""
@@ -174,7 +175,7 @@ class Water:
 
     def is_burning(self) -> bool:
         """Water is never on fire."""
-        raise NotImplementedError("TODO: Water.is_burning")
+        return False
 
     def color(self) -> str:
         """Return a river blue."""
