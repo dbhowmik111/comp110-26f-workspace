@@ -1,0 +1,56 @@
+[project]
+name = "goodfire"
+version = "0.1.0"
+description = "COMP110 Good Fire: sketch a landscape, then plan a fire season in 3D."
+readme = "README.md"
+# comp110_gui needs Python 3.12 or newer (the 3D packages work on 3.12).
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "comp110-gui",
+    "numpy>=2.3,<3",
+    "ursina>=8,<9",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+# The GUI library is bundled in vendor/ (its GitHub repository is private),
+# so every student installs exactly this copy.
+comp110-gui = { path = "vendor/comp110_gui" }
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.414",
+    "pytest>=9.1.1",
+    "ruff>=0.16.9",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 80
+extend-exclude = ["vendor"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "N"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.pyright]
+include = ["."]
+exclude = ["**/.venv", "**/__pycache__", ".agtest", "vendor"]
+reportUnnecessaryTypeIgnoreComment = false
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+# Ursina has no type stubs; the two provided 3D files opt into basic mode.
+reportMissingTypeStubs = false
+venv = ".venv"
+venvPath = "."
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+# `pytest` alone (what the workspace sync task runs) checks only the setup.
+# Run the assignment checks with:  uv run python -m pytest checks
+testpaths = ["tests"]
+python_files = ["test_*.py", "check_*.py"]

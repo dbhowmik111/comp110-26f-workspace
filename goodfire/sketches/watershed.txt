@@ -1,0 +1,5 @@
+# Good Fire sketch: one shape per line, as repr()
+# Default watershed: a river, a county road, and a neighborhood uphill.
+Polyline([Point(8.9, -0.5), Point(9.7, 2.5), Point(10.3, 5.5), Point(10.5, 8.5), Point(10.1, 11.5), Point(9.4, 14.5), Point(8.5, 17.5), Point(7.8, 20.5), Point(7.5, 23.5), Point(7.8, 26.5), Point(8.4, 29.5), Point(8.7, 30.5)], cover='river')
+Polyline([Point(30.0, 14.6), Point(19.0, 14.6), Point(12.0, 15.6), Point(5.0, 15.6)], cover='road')
+Polygon([Point(2.0, 11.0), Point(2.0, 19.0), Point(5.0, 19.0), Point(5.0, 11.0)], cover='homes')

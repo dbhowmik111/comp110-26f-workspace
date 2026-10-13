@@ -1,0 +1,32 @@
+{
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.venv": true,
+    ".python-version": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "scripts": true,
+    "vendor": true,
+    ".gitignore": true,
+    ".vscode": true,
+    "PART1.md": true,
+    "README.md": true,
+    "app.py": true,
+    "checks": true,
+    "fire_science.md": false,
+    "inspiration.md": false,
+    "sketches": false,
+    "tests": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+  "python.testing.cwd": "${workspaceFolder}",
+  "python.testing.pytestArgs": ["checks", "tests"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+}

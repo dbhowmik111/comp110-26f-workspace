@@ -1,0 +1,72 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Good Fire: Sketch Table (2D)",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "app.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: Run Checks",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "-m",
+        "pytest",
+        "checks"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Create EX05 - Good Fire Part 1 Submission",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "scripts/export_goodfire_submission.py",
+        "--part",
+        "1"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    }
+  ]
+}
