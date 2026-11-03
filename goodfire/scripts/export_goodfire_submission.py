@@ -14,11 +14,8 @@ PART1_FILES = (
     "goodfire/sketch.py",
     "goodfire/landscape.py",
 )
-PART2_FILES = PART1_FILES + (
-    "goodfire/weather.py",
-    "goodfire/tactics.py",
-    "goodfire/recursion.py",
-    "goodfire/simulation.py",
+PART2_FILES = (
+    "goodfire/burnplan.py",
     "goodfire/plan.py",
 )
 SUBMISSION_FILES = {"1": PART1_FILES, "2": PART2_FILES}

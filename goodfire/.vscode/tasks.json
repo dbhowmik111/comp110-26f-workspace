@@ -23,6 +23,137 @@
       }
     },
     {
+      "label": "Good Fire: 3D Season (your chosen plan)",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "app3d.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: 3D Season, hotter and drier",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "app3d.py",
+        "--hotter-drier"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: 3D Season, no plan",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "app3d.py",
+        "--no-plan"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: 3D Season, Choose a Plan...",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "app3d.py",
+        "--plan",
+        "${input:plan}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: Compare the Plans",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "compare_plans.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Good Fire: Compare One Plan...",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "compare_plans.py",
+        "${input:plan}"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    },
+    {
       "label": "Good Fire: Run Checks",
       "type": "process",
       "command": "uv",
@@ -67,6 +198,44 @@
         "focus": true,
         "reveal": "always"
       }
+    },
+    {
+      "label": "Create EX06 - Good Fire Part 2 Submission",
+      "type": "process",
+      "command": "uv",
+      "args": [
+        "run",
+        "--locked",
+        "--managed-python",
+        "python",
+        "scripts/export_goodfire_submission.py",
+        "--part",
+        "2"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "focus": true,
+        "reveal": "always"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "plan",
+      "type": "pickString",
+      "description": "Which season plan?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "default": "A"
     }
   ]
 }

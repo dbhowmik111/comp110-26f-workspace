@@ -9,6 +9,7 @@ that protects homes and restores habitat. (Curious where the idea came
 from? See [`inspiration.md`](inspiration.md).)
 
 * **Part 1: The Sketch Table (2D).** Read [`PART1.md`](PART1.md).
+* **Part 2: Plan the Fire Season (3D).** Read [`PART2.md`](PART2.md).
 
 ## Running things
 
@@ -18,6 +19,12 @@ these from this folder:
 ```bash
 uv run python app.py          # Part 1: the 2D sketch table
 uv run python -m pytest checks   # the provided checks
+```
+
+```bash
+uv run python app3d.py                  # Part 2: your plan in 3D
+uv run python app3d.py --hotter-drier   # the same season, hotter and drier
+uv run python compare_plans.py          # compare the five plans
 ```
 
 ## Submitting
