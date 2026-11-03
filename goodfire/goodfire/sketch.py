@@ -129,8 +129,8 @@ class Polyline:
         )
 
     def __repr__(self) -> str:
-        """Show the code that rebuilds this line (used by saved sketches)."""
-        return f"Polyline(points={self.points!r}, cover={self.cover!r})"
+        """Return a representation that can recreate this polyline."""
+        return f"Polyline({self.points!r}, cover={self.cover!r})"
 
     def length(self) -> float:
         """Return the total length, measured in squares."""

@@ -7,7 +7,7 @@ the plan that restores the most habitat with good fire, keeps every burn
 day away from homes, and keeps the most homes safe.
 """
 
-__author__: str = ""  # TODO: your 9-digit PID, like "730123456"
+__author__: str = "730986400"  # TODO: your 9-digit PID, like "730123456"
 
 # TODO: compare the plans with compare_plans.py, then choose one.
 CHOSEN_PLAN: str = ""
