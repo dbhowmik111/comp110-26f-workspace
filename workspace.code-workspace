@@ -3,9 +3,9 @@
 		{
 			"path": "trailhead"
 		},
-		// {
-		// 	"path": "notebooks"
-		// },
+		{
+			"path": "notebooks"
+		},
 		{
 			"path": "spacepaint",
 		},
@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "goodfire",
+		},
+		{
+			"path": "chat110",
 		},
 		{
 			"path": "support"

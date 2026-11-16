@@ -1,0 +1,7 @@
+Gemma is provided under and subject to the Gemma Terms of Use found at ai.google.dev/gemma/terms
+
+This academic application uses Gemma 3 270M IT, developed by Google DeepMind.
+The model, tokenizer, and configuration files are redistributed without changes.
+See MODEL_CARD.md for Google's original model card and academic citation,
+MODEL_USE.md for the model-use agreement, and licenses/ for Google's full terms
+and prohibited-use policy. Google does not sponsor or endorse this application.

@@ -1,0 +1,10 @@
+.venv/
+.cache/
+__pycache__/
+*.py[cod]
+.DS_Store
+.pytest_cache/
+.ruff_cache/
+artifacts/
+/*-decoding-exercise.zip
+/*-chat110-exercise.zip

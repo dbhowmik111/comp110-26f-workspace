@@ -1,0 +1,70 @@
+[project]
+name = "chat110"
+version = "0.1.0"
+description = "Chat110: a two-part COMP110 decoding exercise with a provided Gemma runtime"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+    "torch==2.13.0",
+    "transformers==5.14.0",
+    "jinja2==3.1.6",
+]
+
+[project.scripts]
+chat110 = "chat110.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.10.6,<0.11.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = ["chat110", "decoders"]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'arm64'",
+    "sys_platform == 'win32' and platform_machine == 'AMD64'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.411",
+    "ruff>=0.15.20",
+]
+
+[tool.pyright]
+include = ["src/decoders"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+# Supplied imports and parallel lists are used when students finish the TODOs.
+reportUnusedImport = false
+reportUnusedVariable = false
+venv = ".venv"
+venvPath = "."
+
+[tool.ruff]
+line-length = 120
+src = ["src"]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "RUF", "SIM", "UP"]
+ignore = ["SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+# Preserve supplied scaffolding during the workspace's fix-on-save action.
+"src/decoders/stage_*.py" = ["F401", "F841"]
