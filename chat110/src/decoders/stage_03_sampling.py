@@ -68,6 +68,10 @@ if __name__ == "__main__":
     assert sample_index([0.2, 0.3, 0.5], 0.2) == 1
     assert sample_index([0.2, 0.3, 0.5], 0.5) == 2
     assert sample_index([0.0, 1.0, 0.0], 0.0) == 1
+    assert sample_index([0.2, 0.3, 0.5], 0.0) == 0
+    assert sample_index([0.2, 0.3, 0.5], 0.4) == 1
+    assert sample_index([0.2, 0.3, 0.5], 0.999) == 2
+    assert sample_index([0.5, 0.4999999999999998, 0.0], 0.9999999999999999) == 1
 
     seed(110)
     assert next_token({42: 2.0}) == 42

@@ -50,10 +50,17 @@ def normalize(weights: list[float]) -> list[float]:
 
 if __name__ == "__main__":
     assert normalize([2.0, 3.0, 5.0]) == [0.2, 0.3, 0.5]
-    assert softmax([5.0, 5.0]) == [0.5, 0.5]
+    assert normalize([0.0, 4.0]) == [0.0, 1.0]
+    assert normalize([3.0, 3.0]) == [0.5, 0.5]
 
-    probabilities: list[float] = softmax([2.0, 1.0, 0.0])
-    assert abs(probabilities[0] - 0.665241) < 0.000001
-    assert softmax([1002.0, 1001.0, 1000.0]) == probabilities
+    example: list[float] = softmax([2.0, 1.0, 0.0])
+    assert abs(example[0] - 0.665241) < 0.000001
+    assert abs(example[1] - 0.244728) < 0.000001
+    assert abs(example[2] - 0.090031) < 0.000001
+    assert softmax([-2.0, -2.0]) == [0.5, 0.5]
+    assert softmax([1002.0, 1001.0, 1000.0]) == example
 
+    assert next_token({42: 2.0, 7: 1.0, 99: 0.0}) == 42
     assert next_token({42: -7.0, 7: -2.0, 99: -2.0}) == 7
+    assert next_token({99: 4.0, 7: 4.0}) == 99
+    assert next_token({99: -10.0}) == 99

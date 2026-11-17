@@ -15,21 +15,11 @@ def next_token(logits: dict[int, float]) -> int:
     token_ids: list[int] = list(logits.keys())
     scores: list[float] = list(logits.values())
 
-    token_ids: list[int] = list(logits.keys())
-    scores: list[float] = list(logits.values())
-
     probabilities: list[float] = softmax(scores)
-    ranked_indices: list[int] = rank_indices(probabilities)
-
-    ranked_probabilities: list[float] = []
-    index: int
-    for index in ranked_indices:
-        ranked_probabilities.append(probabilities[index])
-
-    filtered_probabilities: list[float] = top_p(ranked_probabilities, TOP_P)
-    sampled_position: int = sample_index(filtered_probabilities, random())
-    original_index: int = ranked_indices[sampled_position]
-    return token_ids[original_index]
+    filtered_probabilities: list[float] = top_p(probabilities, TOP_P)
+    draw: float = random()
+    chosen_index: int = sample_index(filtered_probabilities, draw)
+    return token_ids[chosen_index]
 
 
 def softmax(scores: list[float]) -> list[float]:
@@ -49,13 +39,17 @@ def softmax(scores: list[float]) -> list[float]:
 
 def top_p(probabilities: list[float], p: float) -> list[float]:
     """Keep the smallest leading probability prefix reaching p, with 0 < p <= 1."""
-    kept: list[float] = []
-    running_total: float = 0.0
-    probability: float
+    if p == 1.0:
+        return probabilities.copy()
 
-    for probability in probabilities:
-        kept.append(probability)
-        running_total = running_total + probability
+    ranked_indices: list[int] = rank_indices(probabilities)
+    kept: list[float] = [0.0] * len(probabilities)
+    running_total: float = 0.0
+    index: int
+
+    for index in ranked_indices:
+        kept[index] = probabilities[index]
+        running_total = running_total + probabilities[index]
         if running_total >= p:
             break
 
@@ -94,9 +88,22 @@ def normalize(weights: list[float]) -> list[float]:
 
 
 if __name__ == "__main__":
-    # TODO: Add calls to check your functions against the examples in the README.
-    assert top_p([0.50, 0.30, 0.15, 0.05], 0.70) == [0.625, 0.375]
-    assert top_p([0.50, 0.30, 0.15, 0.05], 0.50) == [1.0]
+    example: list[float] = [0.125, 0.5, 0.125, 0.25]
+
+    filtered: list[float] = top_p(example, 0.75)
+    assert len(filtered) == len(example)
+    assert filtered[0] == 0.0
+    assert abs(filtered[1] - 2.0 / 3.0) < 0.000001
+    assert filtered[2] == 0.0
+    assert abs(filtered[3] - 1.0 / 3.0) < 0.000001
+
+    assert top_p(example, 0.1) == [0.0, 1.0, 0.0, 0.0]
+    assert top_p(example, 0.8) == normalize([0.125, 0.5, 0.0, 0.25])
+
+    full: list[float] = top_p(example, 1.0)
+    assert full == example
+    assert full is not example
+    assert example == [0.125, 0.5, 0.125, 0.25]
 
     seed(110)
     assert next_token({42: 0.0, 7: 10.0, 99: -5.0}) == 7
