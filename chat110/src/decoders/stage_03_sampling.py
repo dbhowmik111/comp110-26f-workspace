@@ -1,6 +1,6 @@
 """Stage 3: sample a token using cumulative probability intervals."""
 
-__author__: str = "Your PID goes here."
+__author__: str = "730986400"
 
 from math import exp
 from random import random, seed
@@ -11,28 +11,63 @@ def next_token(logits: dict[int, float]) -> int:
     token_ids: list[int] = list(logits.keys())
     scores: list[float] = list(logits.values())
 
-    # TODO: Sample a token ID according to softmax probabilities using one fresh draw.
-    raise NotImplementedError("Complete next_token for this stage.")
+    probabilities: list[float] = softmax(scores)
+    draw: float = random()
+    chosen_index: int = sample_index(probabilities, draw)
+    return token_ids[chosen_index]
 
 
 def softmax(scores: list[float]) -> list[float]:
     """Convert a nonempty list of finite scores into probabilities."""
-    # TODO: Reuse your completed softmax function from Stage 2.
-    raise NotImplementedError("Complete softmax for this stage.")
+    largest_score: float = scores[0]
+    score: float
+    for score in scores:
+        if score > largest_score:
+            largest_score = score
+
+    weights: list[float] = []
+    for score in scores:
+        weights.append(exp(score - largest_score))
+
+    return normalize(weights)
 
 
 def sample_index(probabilities: list[float], draw: float) -> int:
     """Choose a position for a supplied draw, where 0.0 <= draw < 1.0."""
-    # TODO: Return the position whose probability interval contains the supplied draw.
-    raise NotImplementedError("Complete sample_index for this stage.")
+    running_total: float = 0.0
+    last_positive_index: int = 0
+    index: int
+
+    for index in range(len(probabilities)):
+        probability: float = probabilities[index]
+        if probability > 0.0:
+            last_positive_index = index
+
+        running_total = running_total + probability
+        if draw < running_total:
+            return index
+
+    return last_positive_index
 
 
 def normalize(weights: list[float]) -> list[float]:
     """Return probabilities for nonnegative weights with a positive total."""
-    # TODO: Reuse your completed normalize function from Stage 2.
-    raise NotImplementedError("Complete normalize for this stage.")
+    weight_total: float = 0
+    weight: float
+    for weight in weights:
+        weight_total = weight_total + weight
+
+    probabilities: list[float] = []
+    for weight in weights:
+        probabilities.append(weight / weight_total)
+    return probabilities
 
 
 if __name__ == "__main__":
-    # TODO: Add calls to check your functions against the examples in the README.
-    pass
+    assert sample_index([0.2, 0.3, 0.5], 0.1) == 0
+    assert sample_index([0.2, 0.3, 0.5], 0.2) == 1
+    assert sample_index([0.2, 0.3, 0.5], 0.5) == 2
+    assert sample_index([0.0, 1.0, 0.0], 0.0) == 1
+
+    seed(110)
+    assert next_token({42: 2.0}) == 42
